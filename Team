@@ -1,0 +1,53 @@
+package Dualidade;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+
+
+public class Team {
+    private String created_on;
+    private String updated_on;
+    private String name;
+    private static ArrayList<Team> integrantes = new ArrayList<Team>();
+    
+    
+    public String getCreated_on() {
+        return this.created_on;
+    }
+
+    public void setCreated_on(String created_on) {
+        this.created_on = created_on;
+    }
+
+    public String getUpdated_on() {
+        return this.updated_on;
+    }
+
+    public void setUpdated_on(String updated_on) {
+        this.updated_on = updated_on;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    
+
+
+    public Team(String name, String email, String password, User owner, User user) {
+        this.name = name;
+        
+        Date data = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy    HH:mm:ss");
+        
+        created_on = formatter.format(data);
+        integrantes.add(this);
+        
+    }
+    
+}
