@@ -1,0 +1,333 @@
+package Main;
+
+import java.util.Scanner;
+
+import Registros.*;
+import Dados.*;
+
+public class Main {
+	
+	private static Scanner tc = new Scanner(System.in);
+	private static CadastroPaciente registroDePaciente;
+	private static CadastroMedico registroDeMedico;
+	private static CadastroExame registroDeExame;
+	private static CadastroConsulta registroDeConsulta;
+	
+	
+	private static void adicionaPaciente() {
+		String nomePaciente, telefone;
+		int altura;
+		float peso;
+		Exame exames;
+		Consulta consultas;
+		Paciente pacientes;
+		System.out.println("Adicionar paciente:\n");
+		System.out.print("Nome: ");
+		nomePaciente = tc.nextLine();
+		System.out.print("Telefone: ");
+		telefone = tc.nextLine();
+		System.out.print("altura: ");
+		altura = tc.nextInt();
+		System.out.print("Peso: ");
+		peso = tc.nextFloat();
+		
+					
+		pacientes = new Paciente(nomePaciente, telefone,altura,peso,null,null);
+		registroDePaciente.adicionaPaciente(pacientes);
+		
+		System.out.printf ("Paciente cadastrado com sucesso!!");
+	}
+	
+	private static void adicionaMedico() {
+		String nomeMedico, especialidade;
+		Medico medicos;
+		System.out.println("Adicionar medico:\n");
+		System.out.print("Nome: ");
+		nomeMedico = tc.nextLine();
+		System.out.print("Especialidade: ");
+		especialidade = tc.nextLine();
+
+					
+		medicos = new Medico(nomeMedico, especialidade);
+		registroDeMedico.adicionaMedico(medicos);
+		
+		System.out.printf ("Medico cadastrado com sucesso!!");
+	}
+	
+	private static void marcaExame() {
+		String nomePaciente, exame, data, hora;
+		Paciente paciente = null;
+		Exame exames;
+		System.out.println("Marcar exame:\n");
+		System.out.print("Paciente: ");
+		nomePaciente = tc.nextLine();
+		for(int i = 0; i<=registroDePaciente.size(); i++)
+		{
+			Paciente p = registroDePaciente.getPaciente(i);
+			
+			if(p.getNomePaciente()==nomePaciente)
+			{
+				paciente = p;
+
+			}
+		}
+		System.out.print("Exame: ");
+		exame = tc.nextLine();
+		System.out.print("Data com /: ");
+		data = tc.nextLine();
+		System.out.println("Hora com : :");
+		hora = tc.nextLine();
+
+					
+		exames = new Exame(paciente,exame, data, hora);
+		registroDeExame.adicionaExame(exames);
+		paciente.setExames(exames);
+		
+		System.out.printf ("Exame marcado com sucesso!!");
+	}
+	
+	private static void marcaConsulta() {
+		String nomePaciente,especialidade,data, hora;
+		Medico medico = null;
+		Paciente paciente = null;
+		Consulta consultas;
+		System.out.println("Marcar consulta:\n");
+		System.out.print("Paciente: ");
+		nomePaciente = tc.nextLine();
+		
+		for(int i = 0; i<=registroDePaciente.size(); i++)
+		{
+			Paciente p = registroDePaciente.getPaciente(i);
+			
+			if(p.getNomePaciente()==nomePaciente)
+			{
+				paciente = p;
+
+			}
+		}
+
+		
+		System.out.print("Especialidade: ");
+		especialidade = tc.nextLine();
+		
+		for(int i = 0; i<=registroDeMedico.size(); i++)
+		{
+			Medico m = registroDeMedico.getMedico(i);
+			if(m.getEspecialidade()==especialidade)
+			{
+				medico = m;
+				System.out.print("Medico: ");
+				System.out.print(medico.getNomeMedico());
+
+			}
+		}
+		
+		System.out.print("Data com /: ");
+		data = tc.nextLine();
+		System.out.println("Hora com : :");
+		hora = tc.nextLine();
+
+					
+		consultas = new Consulta(medico, data, hora);
+		registroDeConsulta.adicionaConsulta(consultas);
+		paciente.setConsulta(consultas);
+		
+		System.out.printf ("Consulta marcada com sucesso!!");
+	}
+	
+	private static void listarConsultasMarcadas() {
+		System.out.println("=== Lista de consultas marcadas ===");
+		System.out.println("Paciente\t Medico\t Data\t Hora" );
+		
+		for (int i = 0; i < registroDePaciente.size(); i++) {
+			Paciente p = registroDePaciente.getPaciente(i);
+			if(p.getConsultas()!=null)
+			{
+				System.out.printf ("%s\t\t %s\t\t  %s\t\t   %.1f\n",
+						p.getNomePaciente(), p.getConsultas().getMedico().getNomeMedico(), p.getConsultas().getData(), p.getConsultas().getHora());
+			}
+		}		
+	}
+	
+	private static void listarExamesMarcados() {
+		System.out.println("=== Lista de exames marcados ===");
+		System.out.println("Paciente\t Exame\t Data\t Hora" );
+		
+		for (int i = 0; i < registroDePaciente.size(); i++) {
+			Paciente p = registroDePaciente.getPaciente(i);
+			if(p.getExames()!=null)
+			{
+				System.out.printf ("%s\t\t %s\t\t  %s\t\t   %.1f\n",
+						p.getNomePaciente(), p.getExames().getExame(), p.getExames().getData(), p.getExames().getHora());
+			}
+		}
+	}
+	
+	private static void listarTodosPacientes() {
+		System.out.println("=== Lista de pacientes ===");
+		System.out.println("Nome\t Telefone\t\t\t Altura\t\t Peso\t\t " );
+		for (int i = 0; i < registroDePaciente.size(); i++) {
+			Paciente p = registroDePaciente.getPaciente(i);
+			System.out.printf ("%s\t\t %s\t\t  %s\t\t   %.1f\n",
+			p.getNomePaciente(), p.getTelefone(), p.getAltura(), p.getPeso());
+			
+		}
+	}
+	
+	private static void listarPaciente(String nomePaciente) {
+		System.out.println("=== Lista de pacientes ===");
+		System.out.println("Nome\t Telefone\t\t\t Altura\t\t Peso\t\t " );
+		for (int i = 0; i < registroDePaciente.size(); i++) {
+			Paciente p = registroDePaciente.getPaciente(i);
+			
+			if(p.getNomePaciente()==nomePaciente)
+			{
+				System.out.printf ("%s\t\t %s\t\t  %s\t\t   %.1f\n",
+				p.getNomePaciente(), p.getTelefone(), p.getAltura(), p.getPeso());
+			}
+
+			
+		}
+	}
+	
+	private static void listarTodosMedicos() {
+		System.out.println("=== Lista de medicos ===");
+		System.out.println("Nome\t Especialidade\t\t\t " );
+		for (int i = 0; i < registroDeMedico.size(); i++) {
+			Medico m = registroDeMedico.getMedico(i);
+			System.out.printf ("%s\t %s\t\t\n",
+			m.getNomeMedico(), m.getEspecialidade());
+			
+		}
+	}
+	
+	
+	
+	private static void desmarcarConsulta() {
+		String nomePaciente;
+		Paciente paciente = null;
+		System.out.println("Desmarcar consulta:\n");
+		System.out.print("Paciente: ");
+		nomePaciente = tc.nextLine();
+		for(int i = 0; i<=registroDePaciente.size(); i++)
+		{
+			Paciente p = registroDePaciente.getPaciente(i);
+			if(p.getNomePaciente()==nomePaciente)
+			{
+				paciente = p;
+
+			}
+		}
+		
+		if(paciente.getConsultas()!= null )
+		{
+			paciente.setConsulta(null);
+		}
+	}
+	
+	private static void desmarcarExame() {
+		String nomePaciente;
+		Paciente paciente = null;
+		System.out.println("Desmarcar consulta:\n");
+		System.out.print("Paciente: ");
+		nomePaciente = tc.nextLine();
+		for(int i = 0; i<=registroDePaciente.size(); i++)
+		{
+			Paciente p = registroDePaciente.getPaciente(i);
+			if(p.getNomePaciente()==nomePaciente)
+			{
+				paciente = p;
+
+			}
+		}
+		
+		if(paciente.getExames()!= null )
+		{
+			paciente.setExames(null);
+		}
+	}
+	
+	
+	public static void main(String[] args) {
+
+		registroDePaciente = new CadastroPaciente();
+		registroDeMedico = new CadastroMedico();
+		registroDeConsulta = new CadastroConsulta();
+		registroDeExame = new CadastroExame();
+		
+		Paciente paciente1 = new Paciente ("Giovana", "987654321",150, 78,null,null);
+		Paciente paciente2 = new Paciente ("Barry", "912345678",185, 78,null,null);
+		Paciente paciente3 = new Paciente ("Felicity", "983217654",167, 57,null,null);
+		Paciente paciente4 = new Paciente ("Kara", "954321876",170, 54,null,null);
+
+		registroDePaciente.adicionaPaciente(paciente1);
+		registroDePaciente.adicionaPaciente(paciente2);
+		registroDePaciente.adicionaPaciente(paciente3);
+		registroDePaciente.adicionaPaciente(paciente4);
+
+		Medico medico1 = new Medico ("Fabio Copetti", "Endocrinologista");
+		Medico medico2 = new Medico ("Mark Sloan", "Otorrinolaringologista");
+		Medico medico3 = new Medico ("Cristina Yang", "Cardiologista");
+		Medico medico4 = new Medico ("Amelia Sheperd", "Neurologista");
+		Medico medico5 = new Medico ("Callie Torres", "Traumatologista");
+		Medico medico6 = new Medico ("Arizona Robbins", "Pediatra");
+
+		registroDeMedico.adicionaMedico(medico1);
+		registroDeMedico.adicionaMedico(medico2);
+		registroDeMedico.adicionaMedico(medico3);
+		registroDeMedico.adicionaMedico(medico4);
+		registroDeMedico.adicionaMedico(medico5);
+		registroDeMedico.adicionaMedico(medico6);
+		
+		
+		
+		int op;
+		do {
+			System.out.println("\n==> Menu:\n");
+			System.out.println("   0 - sair");
+			System.out.println("   1 - cadastrar paciente");
+			System.out.println("   2 - cadastrar medico");
+			System.out.println("   3 - marca consulta");
+			System.out.println("   4 - marca exame");
+			System.out.println("   5 - mostrar pacientes");
+			System.out.println("   6 - mostrar medicos");
+			System.out.println("   7 - exames marcados");
+			System.out.println("   8 - consultas marcadas");
+			System.out.print("\n   Opcao: ");
+			op = tc.nextInt();
+			tc.nextLine();
+
+			switch (op) {
+			case 0: 
+				System.out.println("Saindo..."); // System.exit(0);
+				break;
+			case 1:
+				adicionaPaciente();
+				break;
+			case 2:
+				adicionaMedico();
+				break;
+			case 3:
+				marcaConsulta();
+				break;
+			case 4:
+				marcaExame();
+				break;
+			case 5:
+				listarTodosPacientes();
+				break;
+			case 6:
+				listarTodosMedicos();
+				break;
+			case 7:
+				listarExamesMarcados();
+				break;
+			default:
+				System.out.println("Opcao invalida!\n\n");
+				break;
+			}
+		} while (op != 0);
+
+	}
+
+}
