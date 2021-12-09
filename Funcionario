@@ -1,0 +1,10 @@
+package Dualidade;
+
+public class Funcionario extends User{
+
+	public Funcionario(String name, String email, String password) {
+		super(name, email, password);
+	}
+
+	
+}
