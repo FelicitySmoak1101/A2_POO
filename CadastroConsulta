@@ -1,0 +1,38 @@
+package Registros;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+
+import Dados.*;
+
+public class CadastroConsulta {
+	
+	private ArrayList<Consulta> registroConsulta;
+
+	public CadastroConsulta() {
+		registroConsulta = new ArrayList<Consulta>();
+	}
+	
+	public void adicionaConsulta (Consulta consulta) {
+		registroConsulta.add(consulta);
+	}
+
+	public Consulta getConsulta (int indice) {
+		return registroConsulta.get(indice);
+	}
+	
+	public void removeConsulta(Consulta consulta) {
+		registroConsulta.remove(consulta);
+	}
+	
+	public void removeConsulta (int indice) {
+		registroConsulta.remove(indice);
+	}
+	
+	public int size() {
+		return registroConsulta.size();
+	}	
+
+}
+
