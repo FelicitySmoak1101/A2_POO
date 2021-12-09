@@ -1,0 +1,40 @@
+package Dados;
+
+public class Consulta {
+	private String data, hora;
+	private Medico medico;
+	
+	public Consulta(Medico medico, String data, String hora) {
+		super();
+		this.medico = medico;
+		this.data = data;
+		this.hora = hora;
+	}
+
+
+	
+	public Medico getMedico() {
+		return medico;
+	}
+
+	public void setMedico(Medico medico) {
+		this.medico = medico;
+	}
+
+	public String getData() {
+		return data;
+	}
+	
+	public void setData(String data) {
+		this.data = data;
+	}
+	
+	public String getHora() {
+		return hora;
+	}
+	
+	public void setHora(String hora) {
+		this.hora = hora;
+	}
+
+}
