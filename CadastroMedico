@@ -1,0 +1,38 @@
+package Registros;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+
+import Dados.*;
+
+public class CadastroMedico {
+	
+	private ArrayList<Medico> registroMedico;
+
+	public CadastroMedico() {
+		registroMedico = new ArrayList<Medico>();
+	}
+	
+	public void adicionaMedico (Medico medico) {
+		registroMedico.add(medico);
+	}
+
+	public Medico getMedico (int indice) {
+		return registroMedico.get(indice);
+	}
+	
+	public void removeMedico(Medico medico) {
+		registroMedico.remove(medico);
+	}
+	
+	public void removeMedico (int indice) {
+		registroMedico.remove(indice);
+	}
+	
+	public int size() {
+		return registroMedico.size();
+	}
+	
+
+}
