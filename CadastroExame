@@ -1,0 +1,37 @@
+package Registros;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+
+import Dados.*;
+
+public class CadastroExame {
+	
+	private ArrayList<Exame> registroExame;
+
+	public CadastroExame() {
+		registroExame = new ArrayList<Exame>();
+	}
+	
+	public void adicionaExame (Exame exame) {
+		registroExame.add(exame);
+	}
+
+	public Exame getExame (int indice) {
+		return registroExame.get(indice);
+	}
+	
+	public void removeExame(Exame exame) {
+		registroExame.remove(exame);
+	}
+	
+	public void removeExame (int indice) {
+		registroExame.remove(indice);
+	}
+	
+	public int size() {
+		return registroExame.size();
+	}
+
+}
